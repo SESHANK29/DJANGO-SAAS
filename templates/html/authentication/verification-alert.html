@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+
+
+{% block title %}Verify email{% endblock title %}
+{% block description %}Verify your email{% endblock description %}
+
+
+{% block content %}
+    <div class="tw-bg-white tw-fixed tw-top-0 tw-z-[5000] tw-flex tw-flex-col tw-place-content-center tw-items-center tw-h-full tw-w-full">
+
+        <div class="tw-bg-white tw-rounded-lg tw-shadow-xl tw-max-w-[550px] tw-h-[300px] tw-flex tw-flex-col tw-place-content-center tw-p-4">
+            <div class="tw-text-xl">
+                A confirmation mail has been sent to <b>{{to_email}}</b>.<br> Please confirm your email
+            </div>
+            
+            <div class="tw-text-sm tw-mt-4 tw-text-center">
+                <span>Go back to login</span>
+                <a href="{% url "login" %}" class="tw-underline tw-text-blue-600">Login</a>
+            </div>
+            <div class="tw-text-sm tw-mt-2 tw-text-center">
+                <span>couldn't find it?</span>
+                <a href="{% url "resend-verification" %}" class="tw-underline tw-text-blue-600">resend confirmation</a>
+            </div>
+        </div>
+
+       
+        
+    </div>
+{% endblock content %}
