@@ -27,6 +27,7 @@ output_file = "project/firebase-cred.json"
 try:
     decoded_bytes = base64.b64decode(encoded_text)
     decoded_text = decoded_bytes.decode("utf-8")
+    print(f"📄 Decoded JSON length: {len(decoded_text)} chars")
     json_data = json.loads(decoded_text)
 except Exception as e:
     print(f"❌ Error decoding Firebase credentials: {e}", file=sys.stderr)
@@ -43,8 +44,12 @@ except IOError as e:
     sys.exit(1)
 EOF
 
-# 4. Build Tailwind CSS (rename 'theme' → 'custom_theme' if needed)
+# 4. Build Tailwind CSS
 if [ -f "tailwind.config.js" ]; then
+    if ! command -v npx &> /dev/null; then
+        echo "❌ npx not found. Install Node.js first."
+        exit 1
+    fi
     echo "🎨 Building Tailwind CSS..."
     npx tailwindcss -i ./theme/static_src/input.css -o ./theme/static/dist/output.css --minify
 fi
