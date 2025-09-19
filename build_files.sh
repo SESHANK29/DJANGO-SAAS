@@ -46,7 +46,7 @@ EOF
 # 4. Build Tailwind CSS (rename 'theme' → 'custom_theme' if needed)
 if [ -f "tailwind.config.js" ]; then
     echo "🎨 Building Tailwind CSS..."
-    npx tailwindcss -i ./custom_theme/static_src/input.css -o ./custom_theme/static/dist/output.css --minify
+    npx tailwindcss -i ./theme/static_src/input.css -o ./theme/static/dist/output.css --minify
 fi
 
 echo "✅ Build completed successfully!"
