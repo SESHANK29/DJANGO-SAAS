@@ -11,3 +11,5 @@ node_modules/
 staticfiles/
 echo "decoded.json" >> .gitignore
 echo "serviceAccountKey.json" >> .gitignore
+git add .gitignore
+git commit -m "Ignore secret files"

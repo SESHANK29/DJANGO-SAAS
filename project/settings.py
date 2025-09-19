@@ -95,7 +95,7 @@ if not DEBUG and cloud_platform in ['DIGITAL_OCEAN', 'RAILWAY']:
         json.dump(decoded_json, f, indent=4)
 
 if DEBUG:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['.vercel.app', 'localhost', '127.0.0.1']
 
 else:
     ALLOWED_HOSTS = env('ALLOWED_HOSTS').replace(' ', '').split(',')
