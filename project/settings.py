@@ -14,6 +14,8 @@ import os
 import json
 import base64
 import environ
+from django.core.exceptions import ImproperlyConfigured
+
  
 import dj_database_url
 from email.headerregistry import Address
@@ -26,6 +28,17 @@ from unfold.settings import CONFIG_DEFAULTS as UNFOLD_DEFAULTS
 from google.oauth2 import service_account
 
 from pathlib import Path
+
+
+def get_firebase_credentials():
+    encoded = os.environ.get("FIREBASE_ENCODED")
+    if not encoded:
+        raise ImproperlyConfigured("FIREBASE_ENCODED environment variable not set.")
+    decoded = base64.b64decode(encoded).decode("utf-8")
+    return json.loads(decoded)
+
+FIREBASE_CREDS = get_firebase_credentials()
+
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
