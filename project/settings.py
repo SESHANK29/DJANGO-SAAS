@@ -115,6 +115,8 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
+    
+    'whitenoise.runserver_nostatic', # whitenoise
 
     'unfold', # django unfold admin
     "unfold.contrib.forms",
@@ -353,6 +355,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_DIRS =[os.path.join(BASE_DIR, 'blog/static')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
