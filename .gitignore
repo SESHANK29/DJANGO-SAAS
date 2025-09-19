@@ -9,3 +9,5 @@ venv/
 .DS_Store
 node_modules/
 staticfiles/
+echo "decoded.json" >> .gitignore
+echo "serviceAccountKey.json" >> .gitignore
