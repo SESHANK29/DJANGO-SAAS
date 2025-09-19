@@ -7,6 +7,10 @@ python3 -m pip install -r requirements.txt
 # 2. Collect static files for Django
 python3 manage.py collectstatic --noinput
 
+# Decode FIREBASE_ENCODED and save as JSON
+echo "$FIREBASE_ENCODED" | base64 --decode > project/firebase-cred.json
+echo "Firebase credentials written to project/firebase-cred.json"
+
 # 3. Handle Firebase credentials from environment variable
 if [ -z "$FIREBASE_ENCODED" ]; then
     echo "Error: FIREBASE_ENCODED environment variable is not set."

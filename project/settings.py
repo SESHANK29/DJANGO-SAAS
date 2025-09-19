@@ -30,12 +30,24 @@ from google.oauth2 import service_account
 from pathlib import Path
 
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 def get_firebase_credentials():
+    """Load Firebase credentials either from FIREBASE_ENCODED (Vercel) or from local file."""
     encoded = os.environ.get("FIREBASE_ENCODED")
-    if not encoded:
-        raise ImproperlyConfigured("FIREBASE_ENCODED environment variable not set.")
-    decoded = base64.b64decode(encoded).decode("utf-8")
-    return json.loads(decoded)
+    if encoded:
+        try:
+            decoded = base64.b64decode(encoded).decode("utf-8")
+            return json.loads(decoded)
+        except Exception as e:
+            raise ImproperlyConfigured(f"Failed to decode FIREBASE_ENCODED: {e}")
+    else:
+        # fallback to local file for development
+        local_path = os.path.join(BASE_DIR, "serviceAccountKey.json")
+        if os.path.exists(local_path):
+            with open(local_path, "r") as f:
+                return json.load(f)
+        raise ImproperlyConfigured("No Firebase credentials found. Set FIREBASE_ENCODED or provide serviceAccountKey.json")
 
 FIREBASE_CREDS = get_firebase_credentials()
 
