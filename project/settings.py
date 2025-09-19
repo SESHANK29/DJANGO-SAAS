@@ -23,9 +23,13 @@ from django.utils.translation import gettext_lazy as _
 
 from django.templatetags.static import static
 from django.urls import reverse_lazy
-from unfold.settings import CONFIG_DEFAULTS as UNFOLD_DEFAULTS
+try:
+    from unfold.settings import CONFIG_DEFAULTS as UNFOLD_DEFAULTS
+except ModuleNotFoundError:
+    # Fallback placeholder if unfold is not installed
+    UNFOLD_DEFAULTS = {}
 
-from google.oauth2 import service_account
+# from google.oauth2 import service_account
 
 from pathlib import Path
 
@@ -387,9 +391,9 @@ else:
     DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
     GS_BUCKET_NAME = env("BUCKET_NAME") # google storage - GS
     GS_PROJECT_ID = env("PROJECT_ID")
-    GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-        BASE_DIR.joinpath(env("FIREBASE_CRED_PATH"))
-    )
+    # # GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    #     BASE_DIR.joinpath(env("FIREBASE_CRED_PATH"))
+    # )
     GS_DEFAULT_ACL = "publicRead"  # Optional: Set ACL for public access
     GS_QUERYSTRING_AUTH = True  # Optional: Enable querystring authentication
     GS_FILE_OVERWRITE = False # prevent overwriting
