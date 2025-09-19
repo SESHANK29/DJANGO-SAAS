@@ -146,7 +146,7 @@ INSTALLED_APPS = [
     'transaction',
 ]
 
-TAILWIND_APP_NAME = "theme"
+TAILWIND_APP_NAME = "custom_theme"
 
 GOOGLE_ANALYTICS = "G-TEST12345"
 
