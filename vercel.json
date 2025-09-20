@@ -1,27 +1,41 @@
 {
   "version": 2,
-    "builds": [
-        {
-            "src": "project/wsgi.py",
-            "use": "@vercel/python",
-            "config": { "maxLambdaSize": "15mb", "runtime": "python3.12" }
-          },
-          {
-            "src": "build_files.sh",
-            "use": "@vercel/static-build",
-            "config": {
-              "distDir": "staticfiles"
-            }
-          }
-    ],
-    "routes": [
-        {
-            "src": "/static/(.*)",
-            "dest": "/static/$1"
-          },
-        {
-        "src": "/(.*)",
-        "dest": "project/wsgi.py"
-        }
-    ]
+  "builds": [
+    {
+      "src": "project/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "15mb",
+        "runtime": "python3.12"
+      }
+    },
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "staticfiles"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/media/(.*)",
+      "dest": "/media/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "project/wsgi.py"
+    }
+  ],
+  "env": {
+    "DEBUG": "False",
+    "SECRET_KEY": "django-insecure-!@#change_me_!@#",
+    "DATABASE_URL": "postgres://user:pass@host:5432/dbname",
+    "FIREBASE_ENCODED": "@firebase-encoded",
+    "ALLOWED_HOSTS": ".vercel.app"
+  }
 }
